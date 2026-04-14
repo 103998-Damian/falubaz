@@ -1,0 +1,6 @@
+*.blend
+*.blend1
+*.blend2
+*.glb
+.godot/
+*.import
