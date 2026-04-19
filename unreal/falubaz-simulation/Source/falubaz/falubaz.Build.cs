@@ -20,7 +20,8 @@ public class falubaz : ModuleRules
         PrivateDependencyModuleNames.AddRange(new string[]
         {
             "Slate",
-            "SlateCore"
+            "SlateCore",
+            "UMG"
         });
     }
 }

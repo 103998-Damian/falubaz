@@ -1,0 +1,29 @@
+# Unreal Engine 5 – gitignore
+
+# Skompilowane pliki binarne
+Binaries/
+Intermediate/
+DerivedDataCache/
+
+# Zapisane dane edytora i logi
+Saved/
+
+# Zawartość (assety – za duże dla git, trzymaj w LFS lub osobno)
+Content/
+
+# Visual Studio
+.vs/
+*.sln
+*.suo
+*.user
+
+# Pliki generowane przez UE
+*.VC.db
+*.opensdf
+*.sdf
+*.sln
+*.xcworkspace
+*.xcodeproj
+
+# Pliki konfiguracyjne lokalne
+Config/DefaultEngine.ini.bak

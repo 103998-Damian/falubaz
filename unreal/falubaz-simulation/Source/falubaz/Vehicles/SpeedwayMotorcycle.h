@@ -11,6 +11,7 @@ struct FInputActionValue;
 class USpringArmComponent;
 class UCameraComponent;
 class UStaticMeshComponent;
+class USpeedwayHUD;
 
 UCLASS()
 class FALUBAZ_API ASpeedwayMotorcycle : public APawn
@@ -73,7 +74,16 @@ public:
     UPROPERTY(BlueprintReadOnly, Category = "State")
     float SteerInput = 0.f;
 
+    // --- HUD ---
+
+    /** Klasa widgetu HUD – przypisz WBP_HUD w Blueprint */
+    UPROPERTY(EditAnywhere, Category = "UI")
+    TSubclassOf<UUserWidget> HUDClass;
+
 private:
     void HandleThrottle(const FInputActionValue& Value);
     void HandleSteer(const FInputActionValue& Value);
+
+    UPROPERTY()
+    USpeedwayHUD* HUDWidget = nullptr;
 };

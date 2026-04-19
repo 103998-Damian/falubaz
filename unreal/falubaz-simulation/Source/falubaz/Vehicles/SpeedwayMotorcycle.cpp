@@ -1,4 +1,6 @@
 #include "SpeedwayMotorcycle.h"
+#include "../UI/SpeedwayHUD.h"
+#include "Blueprint/UserWidget.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -13,7 +15,7 @@ ASpeedwayMotorcycle::ASpeedwayMotorcycle()
 
     // Kapsuła jako root – ma kolizję i fizykę od razu
     PhysicsBody = CreateDefaultSubobject<UCapsuleComponent>(TEXT("PhysicsBody"));
-    PhysicsBody->SetCapsuleSize(35.f, 55.f); // promień 35cm, wysokość 110cm
+    PhysicsBody->SetCapsuleSize(40.f, 60.f); // promień 40cm, wysokość 120cm
     PhysicsBody->SetSimulatePhysics(true);
     PhysicsBody->SetCollisionProfileName(TEXT("PhysicsActor"));
     SetRootComponent(PhysicsBody);
@@ -49,6 +51,16 @@ void ASpeedwayMotorcycle::BeginPlay()
         {
             Subsystem->AddMappingContext(DefaultMappingContext, 0);
         }
+
+        // Utwórz HUD
+        if (HUDClass)
+        {
+            HUDWidget = Cast<USpeedwayHUD>(CreateWidget<UUserWidget>(PC, HUDClass));
+            if (HUDWidget)
+            {
+                HUDWidget->AddToViewport();
+            }
+        }
     }
 }
 
@@ -67,6 +79,18 @@ void ASpeedwayMotorcycle::Tick(float DeltaTime)
     // Opór powietrza
     const FVector Velocity = PhysicsBody->GetPhysicsLinearVelocity();
     PhysicsBody->AddForce(-Velocity * DragCoefficient, NAME_None, false);
+
+    // Aktualizuj HUD
+    if (HUDWidget)
+    {
+        const float SpeedCMS = Velocity.Size();
+        const float SpeedKMH = SpeedCMS * 0.036f;
+        // Obroty żużlowe: 4000 RPM na starcie, 9000 RPM przy 120 km/h
+        // Silnik zawsze na wysokich obrotach – brak skrzyni biegów
+        const float BaseRPM = ThrottleInput > 0.f ? 4000.f : 0.f;
+        const float RPM = FMath::Lerp(BaseRPM, 9000.f, FMath::Clamp(SpeedKMH / 120.f, 0.f, 1.f));
+        HUDWidget->UpdateHUD(SpeedKMH, RPM);
+    }
 }
 
 void ASpeedwayMotorcycle::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
