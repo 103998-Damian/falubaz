@@ -1,14 +1,33 @@
 # Falubaz – Symulacja Żużlowa
 
-Projekt symulacji żużlowej Falubaz w Godot 4, z modelami 3D przygotowanymi w Blenderze.
+Projekt symulacji żużlowej Falubaz w **Unreal Engine 5 + C++**, z modelami 3D przygotowanymi w Blenderze.
 
 ## Struktura projektu
 
 ```
 falubaz/
-├── godot/falubaz-simulation/   # Projekt Godot 4
+├── unreal/falubaz-simulation/  # Projekt UE5 (aktywny)
+│   └── Source/falubaz/
+│       ├── Vehicles/           # SpeedwayMotorcycle, SpeedwayMovementComponent
+│       ├── Track/              # SpeedwayTrack
+│       └── Player/             # SpeedwayPlayerController
+├── godot/falubaz-simulation/   # Projekt Godot 4 (archiwum)
 └── blender/                    # Pliki Blender (nieśledzone przez git)
 ```
+
+## Wymagania
+
+- Unreal Engine 5.4 lub 5.5
+- Visual Studio 2022 z workloadem **"Game development with C++"**
+- Blender 3.x+ (do edycji modeli)
+
+## Pierwsze uruchomienie
+
+1. Otwórz Unreal Editor i utwórz nowy projekt C++ w `unreal/`:
+   - `New Project → C++ → Vehicle (2-Wheel) → falubaz-simulation`
+2. Skopiuj pliki z `Source/falubaz/` do nowego projektu
+3. Skompiluj: `Tools → Compile` lub `Build` w Visual Studio
+4. Modele z Blendera eksportuj jako `.fbx` do `Content/Models/`
 
 ## Git – zasady pracy z branchami
 
