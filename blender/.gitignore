@@ -1,0 +1,5 @@
+# Blender project files (large binaries)
+*.blend
+*.blend1
+*.blend2
+*.glb

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c6kr5xktpo1d6"]
+
+[ext_resource type="PackedScene" uid="uid://bilod8l686iny" path="res://falubaz_projekt.glb" id="1_b6xpr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ejn1v"]
+albedo_color = Color(0.17963724, 0.35080117, 0.17963724, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_63it3"]
+albedo_color = Color(0.6765967, 0.6364924, 0.44034207, 1)
+
+[node name="falubaz_projekt" unique_id=123532704 instance=ExtResource("1_b6xpr")]
+
+[node name="Podloze" parent="." index="0" unique_id=73281272]
+surface_material_override/0 = SubResource("StandardMaterial3D_ejn1v")
+
+[node name="Nawierzchnia" parent="." index="1" unique_id=1846379995]
+surface_material_override/0 = SubResource("StandardMaterial3D_63it3")
