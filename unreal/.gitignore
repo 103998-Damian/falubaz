@@ -8,8 +8,11 @@ DerivedDataCache/
 # Zapisane dane edytora i logi
 Saved/
 
-# Zawartość (assety – za duże dla git, trzymaj w LFS lub osobno)
-Content/
+# Zawartość (duże assety wykluczone)
+Content/StarterContent/
+Content/Models/
+Content/__ExternalActors__/
+Content/__ExternalObjects__/
 
 # Visual Studio
 .vs/
