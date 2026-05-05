@@ -1,13 +1,92 @@
 # Falubaz – Symulacja Żużlowa
 
-Projekt symulacji żużlowej Falubaz w Godot 4, z modelami 3D przygotowanymi w Blenderze.
+Projekt symulacji żużlowej Falubaz w **Unreal Engine 5 + C++**, z modelami 3D przygotowanymi w Blenderze.
 
 ## Struktura projektu
 
 ```
 falubaz/
-├── godot/falubaz-simulation/   # Projekt Godot 4
+├── unreal/falubaz-simulation/  # Projekt UE5 (aktywny)
+│   └── Source/falubaz/
+│       ├── Vehicles/           # SpeedwayMotorcycle, SpeedwayMovementComponent
+│       ├── Track/              # SpeedwayTrack
+│       └── Player/             # SpeedwayPlayerController
+├── godot/falubaz-simulation/   # Projekt Godot 4 (archiwum)
 └── blender/                    # Pliki Blender (nieśledzone przez git)
+```
+
+## Wymagania
+
+- **Unreal Engine 5.5** (pobierz przez Epic Games Launcher)
+- **Visual Studio 2022** z workloadem **"Game development with C++"**
+  - Podczas instalacji VS zaznacz: `MSVC v143`, `Windows 10/11 SDK`, `C++ CMake tools`
+- Git
+
+## Pierwsze uruchomienie
+
+### 1. Sklonuj repozytorium
+
+```bash
+git clone https://github.com/falubaz/falubaz.git
+cd falubaz
+git checkout dev
+```
+
+### 2. Skompiluj projekt
+
+Zamknij Unreal Engine jeśli jest otwarty, następnie uruchom:
+
+```
+unreal/falubaz-simulation/GenerateVS.bat
+```
+
+Poczekaj na komunikat `Build succeeded` (kilka minut przy pierwszym uruchomieniu).
+Log z kompilacji zapisuje się do `unreal/falubaz-simulation/build_log.txt`.
+
+### 3. Otwórz projekt w Unreal Engine
+
+1. W **Epic Games Launcher** uruchom Unreal Engine 5.5
+2. Otwórz plik: `unreal/falubaz-simulation/FalubazSimulation.uproject`
+3. Jeśli pojawi się pytanie "Rebuild now?" – kliknij **Yes**
+
+### 4. Skonfiguruj Blueprint motocykla
+
+Po otwarciu projektu w UE5:
+
+1. W **Content Browser** otwórz `Blueprints/BP_SpeedwayMotorcycle`
+2. W panelu **Details** uzupełnij:
+   - `Default Mapping Context` → `IMC_Motorcycle`
+   - `Throttle Action` → `IA_Throttle`
+   - `Steer Action` → `IA_Steer`
+   - `HUD Class` → `WBP_HUD`
+   - `Motorcycle Mesh` → wybierz model motocykla z `Content/Models/`
+3. Kliknij **Compile** i **Save**
+
+### 5. Uruchom symulację
+
+- Naciśnij **Play** w edytorze
+- Sterowanie:
+  - **W** – gaz
+  - **A / D** – skręt w lewo / prawo
+
+### Parametry fizyki (edytowalne w BP)
+
+| Parametr | Wartość domyślna | Opis |
+|----------|-----------------|------|
+| `Engine Force` | 5000 | Siła napędowa silnika |
+| `Steer Torque` | 3000 | Moment skrętu |
+| `Drag Coefficient` | 0.5 | Opór powietrza |
+
+## Struktura kodu
+
+```
+Source/falubaz/
+├── Vehicles/
+│   └── SpeedwayMotorcycle.h/.cpp   # Pawn motocykla, fizyka, input
+├── UI/
+│   └── SpeedwayHUD.h/.cpp          # Widget HUD (prędkość, RPM)
+└── Track/
+    └── SpeedwayTrack.h/.cpp        # Proceduralny tor żużlowy
 ```
 
 ## Git – zasady pracy z branchami
